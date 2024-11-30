@@ -7,10 +7,8 @@ import pandas as pd
 from tensorflow.keras.models import load_model
 from tempfile import NamedTemporaryFile
 
-# Suppress TensorFlow and Streamlit warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="streamlit")
 
-# Set the environment variable for TensorFlow optimization (optional)
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
 # Flower names for classification
@@ -40,15 +38,12 @@ flower_info = {
     }
 }
 
-# Admin credentials (you can adjust these)
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
-# Try loading the model and catch errors
 try:
     model = load_model('Flower_Recog_Model.h5')
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-    #st.write("Model loaded successfully!")
 except Exception as e:
     st.write(f"Error loading model: {e}")
 
@@ -79,7 +74,6 @@ def load_inventory():
         inventory_data['Price'] = pd.to_numeric(inventory_data['Price'], errors='coerce')
         inventory_data['Stock'] = pd.to_numeric(inventory_data['Stock'], errors='coerce')
 
-        # Handle NaN values
         inventory_data['Price'] = inventory_data['Price'].fillna(0.0)
         inventory_data['Stock'] = inventory_data['Stock'].fillna(0)
 
@@ -177,7 +171,6 @@ def inventory_page():
                 st.error("Invalid username or password. Please try again.")
     else:
         # Admin is logged in, show the inventory page
-        #st.write("You are logged in as an admin.")
         
         # Logout button
         if st.button("Logout"):
